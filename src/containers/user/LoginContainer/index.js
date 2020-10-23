@@ -1,77 +1,66 @@
 import React, { Component } from 'react';
-import { Button, Input } from 'antd';
-import {Redirect} from 'react-router-dom'
+import { Form, Button, Input } from 'antd';
+import { Link } from "react-router-dom";
+import { login } from "../../../redux/actions"
+import { connect } from 'react-redux';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-class LoginContainer extends Component {
+class Login extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      name: 'test',
-      password: '123456',
-      loginStatus: false
+      redirect: '/',
     }
+    this.onFinish = this.onFinish.bind(this);
   }
 
-  login() {
-    const postData = {
-      name: this.state.name,
-      password: this.state.password
-    };
-    fetch('http://localhost:8080/user/login', {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(postData)
-    })
-    .then((Response) => {
-      if (Response.status === 200) {
-        return Response.json();
-      } else {
-        Promise.reject();
-      }
-    }).then(data => {
-        console.log(data);
-        this.setState({
-          loginStatus: true
-        });
-      });
-  }
+  formRef = React.createRef();
 
-  handleUserNameChange = (event) => {
-    this.setState({
-      name: event.target.value
-    });
-  }
-  handlePassWordChange = (event) => {
-    this.setState({
-      password: event.target.value
-    });
-  }
+
+  onFinish = values => {
+    const { dispatch } = this.props;
+    dispatch(login({ name: values.name, password: values.password }), this.state.redirect)
+  };
+
+
 
   render() {
-    if(this.state.loginStatus) {
-      return <Redirect to= '/' />
-    }
-    
     return (
       <div>
         <h1>用户登录页面</h1>
-        <table align="center" valign="center">
-          <tr>
-            <td>用户名:</td>
-            <td><Input placeholder="请输入用户名" style={{ width: 200 }} onChange={this.handleUserNameChange} /></td>
-          </tr>
-          <tr>
-            <td>密码:</td>
-            <td><Input.Password placeholder="请输入密码" style={{ width: 200 }} onChange={this.handlePassWordChange} /></td>
-          </tr>
-        </table>
-        <Button type="primary" style={{ marginTop: 10, width: 300 }} onClick={() => (this.login())}>登录</Button>
+        <Form onFinish={this.onFinish} ref={this.formRef} name="Login" style={{
+          position: 'absolute', left: '50%', top: '30%',
+          transform: 'translate(-50%, -50%)'
+        }} className="login-form">
+          <Form.Item name={"name"} rules={[{ required: true, message: '请输入用户名' }]}>
+            <Input
+              prefix={<UserOutlined />}
+              placeholder="用户名或邮箱"
+            />
+          </Form.Item>
+          <Form.Item name={"password"} rules={[{ required: true, message: '请输入密码' }]}>
+            <Input
+              prefix={<LockOutlined />}
+              type="password"
+              placeholder="密码"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="login-form-button" >
+              登录
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     );
   }
-  
 }
 
-export default LoginContainer;
+function mapStateToProps(state) {
+  const { loggingIn } = state.auth;
+  return {
+    loggingIn,
+  };
+}
+
+export default connect(mapStateToProps)(Login)

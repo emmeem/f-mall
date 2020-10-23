@@ -1,7 +1,7 @@
 import HomeContainer from '../containers/user/HomeContainer'
 import GoodsContainer from '../containers/user/GoodsContainer'
 import CartContainer from '../containers/user/CartContainer'
-import LoginContainer from '../containers/user/LoginContainer'
+import Login from '../containers/user/LoginContainer'
 import RegisterContainer from '../containers/user/RegisterContainer'
 
 const ROUTES = [
@@ -24,7 +24,7 @@ const ROUTES = [
       key: 'login',
       link: '/user/login',
       text: '登陆',
-      component: LoginContainer
+      component: Login
   }, {
       key: 'register',
       link: '/user/register',

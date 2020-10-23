@@ -5,18 +5,10 @@ import { ShopOutlined, HomeOutlined, ShoppingCartOutlined, LoginOutlined } from 
 import ROUTES from '../../config/routes'
 
 class Menus extends Component {
-  state = {
-    current: this.props.current,
-  };
-
-  handleClick = e => {
-    console.log('click ', e);
-    this.setState({ current: e.key });
-  };
-
   render() {
+    const current = this.props.current;
     return (
-      <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
+      <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
         <Menu.Item key="home" icon={<HomeOutlined />}>
           <Link to={ROUTES[0].link}><b>{ROUTES[0].text}</b></Link>
         </Menu.Item>
