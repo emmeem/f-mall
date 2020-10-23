@@ -6,7 +6,7 @@ import ROUTES from '../../config/routes'
 
 class Menus extends Component {
   state = {
-    current: 'home',
+    current: this.props.current,
   };
 
   handleClick = e => {

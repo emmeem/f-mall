@@ -1,8 +1,8 @@
-import HomeContainer from '../Containers/HomeContainer'
-import GoodsContainer from '../Containers/GoodsContainer'
-import CartContainer from '../Containers/CartContainer'
-import LoginContainer from '../Containers/LoginContainer'
-import RegisterContainer from '../Containers/RegisterContainer'
+import HomeContainer from '../containers/user/HomeContainer'
+import GoodsContainer from '../containers/user/GoodsContainer'
+import CartContainer from '../containers/user/CartContainer'
+import LoginContainer from '../containers/user/LoginContainer'
+import RegisterContainer from '../containers/user/RegisterContainer'
 
 const ROUTES = [
   {
@@ -22,12 +22,12 @@ const ROUTES = [
   component: CartContainer
 }, {
       key: 'login',
-      link: '/login',
+      link: '/user/login',
       text: '登陆',
       component: LoginContainer
   }, {
       key: 'register',
-      link: '/register',
+      link: '/user/register',
       text: '注册',
       component: RegisterContainer
   }

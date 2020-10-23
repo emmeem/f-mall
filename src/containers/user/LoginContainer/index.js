@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Button, Input } from 'antd';
+import {Redirect} from 'react-router-dom'
 
 class LoginContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: 'test',
-      password: '123456'
+      password: '123456',
+      loginStatus: false
     }
   }
 
@@ -22,11 +24,19 @@ class LoginContainer extends Component {
       },
       body: JSON.stringify(postData)
     })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-      })
-  };
+    .then((Response) => {
+      if (Response.status === 200) {
+        return Response.json();
+      } else {
+        Promise.reject();
+      }
+    }).then(data => {
+        console.log(data);
+        this.setState({
+          loginStatus: true
+        });
+      });
+  }
 
   handleUserNameChange = (event) => {
     this.setState({
@@ -40,10 +50,14 @@ class LoginContainer extends Component {
   }
 
   render() {
+    if(this.state.loginStatus) {
+      return <Redirect to= '/' />
+    }
+    
     return (
       <div>
-        <h1>登录页面</h1>
-        <table >
+        <h1>用户登录页面</h1>
+        <table align="center" valign="center">
           <tr>
             <td>用户名:</td>
             <td><Input placeholder="请输入用户名" style={{ width: 200 }} onChange={this.handleUserNameChange} /></td>

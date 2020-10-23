@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Input } from 'antd';
+import {Redirect} from 'react-router-dom'
 
 class RegisterContainer extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class RegisterContainer extends Component {
       name: 'test',
       password: '123456',
       phone: '18117837389',
-      address: '2nd street'
+      address: '2nd street',
+      registerStatus: false
     }
   }
 
@@ -29,9 +31,12 @@ class RegisterContainer extends Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
-      })
-  };
+        console.log(data);
+        this.setState({
+          registerStatus: true
+        });
+      });
+  }
 
   handleUserNameChange = (event) => {
     this.setState({
@@ -55,10 +60,14 @@ class RegisterContainer extends Component {
   }
 
   render() {
+    if(this.state.registerStatus) {
+      return <Redirect to= '/' />
+    }
+
     return (
       <div>
-        <h1>注册页面</h1>
-        <table >
+        <h1>用户注册页面</h1>
+        <table className="register" align="center" valign="center">
           <tr>
             <td>用户名:</td>
             <td><Input placeholder="请输入用户名" style={{ width: 200 }} onChange={this.handleUserNameChange} /></td>
