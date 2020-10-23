@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
-import LoginContainer from './User/LoginContainer'
-import RegisterContainer from './User/RegisterContainer'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Menus from './Components/Menus'
+import ROUTES from './config/routes'
 
 class App extends Component {
   render() {
     return (
-        <div data-testid="app" className="App">
-           <RegisterContainer />
-        </div>
+      <div data-testid="app" className="App">
+        <Router>
+          <Menus />
+          <Switch>
+            <Route exact path='/' component={ROUTES[0].component} />
+            <Route exact path='/goods' component={ROUTES[1].component} />
+            <Route exact path='/cart' component={ROUTES[2].component} />
+            <Route exact path='/login' component={ROUTES[3].component} />
+            <Route exact path='/register' component={ROUTES[4].component} />
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }

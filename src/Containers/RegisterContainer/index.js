@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'antd/dist/antd.css';
 import { Button, Input } from 'antd';
 
 class RegisterContainer extends Component {
