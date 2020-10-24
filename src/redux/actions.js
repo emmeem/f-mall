@@ -72,3 +72,11 @@ export function register(value) {
   function success(user) { return { type: types.REGISTER_SUCCESS, user } }
   function failure(error) { return { type: types.REGISTER_FAILURE, error } }
 }
+
+export function changeMenuKey(key) {
+  return dispatch => {
+    dispatch(handlClick(key))
+  }
+
+  function handlClick(key) {return {type: types.CHANGE_MENU_KEY, key}}
+}

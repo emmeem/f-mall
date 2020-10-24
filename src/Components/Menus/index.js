@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { changeMenuKey } from "../../redux/actions";
 import { ShopOutlined, HomeOutlined, ShoppingCartOutlined, LoginOutlined } from '@ant-design/icons';
 import ROUTES from '../../config/routes'
 
 class Menus extends Component {
+
+  handleClick = e => {
+    const {dispatch} = this.props;
+    dispatch(changeMenuKey(e.key))
+  }
+
   render() {
-    const current = this.props.current;
+    const { current} = this.props;
     return (
       <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
         <Menu.Item key="home" icon={<HomeOutlined />}>
@@ -30,4 +38,10 @@ class Menus extends Component {
   }
 }
 
-export default Menus;
+function mapStateToProps(state) {
+  return {
+    current: state.current
+  };
+}
+
+export default connect(mapStateToProps)(Menus);

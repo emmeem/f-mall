@@ -11,3 +11,5 @@ export const GET_GOODS = 'GET_GOODS';
 export const SUCCESS = 'SUCESS';
 export const ERROR = 'ERROR';
 export const CLEAR = 'DESTROY';
+
+export const CHANGE_MENU_KEY = "CHANGE_MENU_KEY";

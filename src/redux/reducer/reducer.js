@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SUCCESS, ERROR, CLEAR,
-  REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE
+  REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE, CHANGE_MENU_KEY
 } from "../action-type";
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -65,9 +65,21 @@ function alertReducer(state = {}, action) {
   }
 }
 
+function menu(state = {}, action) {
+  switch (action.type) {
+    case CHANGE_MENU_KEY:
+      return {
+        current: action.key
+      }
+    default:
+      return state
+  }
+}
+
 
 export const reducer = combineReducers({
   auth,
   registration,
-  alertReducer
+  alertReducer,
+  menu
 });
