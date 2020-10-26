@@ -26,6 +26,10 @@ export function login(user, redirect) {
         "Content-type": "application/json"
       },
       body: JSON.stringify(user)
+    }).then(handleResponse)
+    .catch(e => {
+      dispatch(alertError(e));
+      dispatch(failure(e));
     }).then(res => {
       dispatch(success(res));
       dispatch(alertInfo("登录成功"))
@@ -35,11 +39,7 @@ export function login(user, redirect) {
         history.push(redirect)
       }
       history.push(redirect)
-    })
-      .catch(e => {
-        dispatch(alertError(e));
-        dispatch(failure(e));
-      });
+    });
 
     function request(user) { return { type: types.LOGIN_REQUEST, user } }
     function success(user) { return { type: types.LOGIN_SUCCESS, user } }
@@ -79,4 +79,35 @@ export function changeMenuKey(key) {
   }
 
   function handlClick(key) {return {type: types.CHANGE_MENU_KEY, key}}
+}
+
+export function getProductList() {
+  return dispatch => {
+    dispatch(productListGetFetching())
+    fetch('http://localhost:8080/product', {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then(handleResponse)
+    .then(res => {
+      dispatch(productListGetSuccess(res))
+    }).catch(e => {
+        dispatch(alertError(e));
+    });
+  }
+
+  function productListGetFetching() { return { type: types.GET_PRODUCT_REQUEST} }
+  function productListGetSuccess(data) { return { type: types.GET_PRODUCT_SUCCESS, data} }
+}
+
+function handleResponse(response) {
+  return response.text().then(text => {
+    const data = text && JSON.parse(text);
+    if (!response.ok) {
+      const error = (data && data.message) || response.statusText;
+      return Promise.reject(error);
+    }
+    return data;
+  });
 }

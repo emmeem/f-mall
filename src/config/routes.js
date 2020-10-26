@@ -1,5 +1,5 @@
 import Home from '../containers/user/Home'
-import Goods from '../containers/user/Goods'
+import Product from '../containers/user/Product'
 import Cart from '../containers/user/Cart'
 import Login from '../containers/user/Login'
 import Register from '../containers/user/Register'
@@ -11,10 +11,10 @@ const ROUTES = [
     text: '首页',
     component: Home
   }, {
-    key: 'goods',
-    link: '/goods',
+    key: 'product',
+    link: '/product',
     text: '商品',
-    component: Goods
+    component: Product
   }, {
     key: 'cart',
     link: '/cart',

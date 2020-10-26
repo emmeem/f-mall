@@ -13,7 +13,7 @@ class App extends Component {
         <Menus />
         <Switch>
           <Route exact path='/' component={ROUTES[0].component} />
-          <Route exact path='/goods' component={ROUTES[1].component} />
+          <Route exact path='/product' component={ROUTES[1].component} />
           <Route exact path='/cart' component={ROUTES[2].component} />
           <Route exact path='/user/login' component={ROUTES[3].component} />
           <Route exact path='/user/register' component={ROUTES[4].component} />

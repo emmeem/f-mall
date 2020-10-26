@@ -2,13 +2,15 @@ import { combineReducers } from 'redux';
 
 import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SUCCESS, ERROR, CLEAR,
-  REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE, CHANGE_MENU_KEY
+  REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE, CHANGE_MENU_KEY,
+  GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS, GET_PRODUCT_FAILURE
 } from "../action-type";
 
 let user = JSON.parse(localStorage.getItem("user"));
 const initialState = user ? { loggedIn: true, user } : {};
 
 function auth(state = initialState, action) {
+  
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
@@ -34,6 +36,7 @@ function registration(state = {}, action) {
       }
     case REGISTER_SUCCESS:
       return {
+        isLoggedIn: true,
         user: action.user
       }
     case REGISTER_FAILURE:
@@ -76,10 +79,32 @@ function menu(state = {}, action) {
   }
 }
 
+function getProductList(state ={}, action) {
+  switch (action.type) {
+    case GET_PRODUCT_REQUEST:
+      return {
+        data: [],
+        loading: true
+      }
+    case GET_PRODUCT_SUCCESS:
+      return {
+        data: action.data,
+        loading: false,
+      }
+    case GET_PRODUCT_FAILURE:
+      return {
+        data: [],
+      }
+    default:
+      return state
+  }
+}
+
 
 export const reducer = combineReducers({
   auth,
   registration,
   alertReducer,
-  menu
+  menu,
+  getProductList
 });
