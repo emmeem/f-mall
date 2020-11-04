@@ -111,3 +111,23 @@ function handleResponse(response) {
     return data;
   });
 }
+
+export function getCompanyProductList(url) {
+  return dispatch => {
+    dispatch(companyProductListGetFetching())
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then(handleResponse)
+    .then(res => {
+      dispatch(companyProductListGetSuccess(res))
+    }).catch(e => {
+        dispatch(alertError(e));
+    });
+  }
+
+  function companyProductListGetFetching() { return { type: types.GET_PRODUCT_REQUEST} }
+  function companyProductListGetSuccess(data) { return { type: types.GET_PRODUCT_SUCCESS, data} }
+}
