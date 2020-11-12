@@ -3,7 +3,8 @@ import { combineReducers } from 'redux';
 import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SUCCESS, ERROR, CLEAR,
   REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE, CHANGE_MENU_KEY,
-  GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS, GET_PRODUCT_FAILURE
+  GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS, GET_PRODUCT_FAILURE,
+  GET_CART_REQUEST, GET_CART_SUCCESS, GET_CART_FAILURE
 } from "../action-type";
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -100,11 +101,32 @@ function getProductList(state ={}, action) {
   }
 }
 
+function getCartInfo(state ={}, action) {
+  switch (action.type) {
+    case GET_CART_REQUEST:
+      return {
+        data: [],
+        loading: true
+      }
+    case GET_CART_SUCCESS:
+      return {
+        data: action.data,
+        loading: false,
+      }
+    case GET_CART_FAILURE:
+      return {
+        data: [],
+      }
+    default:
+      return state
+  }
+}
 
 export const reducer = combineReducers({
   auth,
   registration,
   alertReducer,
   menu,
-  getProductList
+  getProductList,
+  getCartInfo
 });

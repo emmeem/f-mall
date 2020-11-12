@@ -15,3 +15,7 @@ export const ERROR = 'ERROR';
 export const CLEAR = 'DESTROY';
 
 export const CHANGE_MENU_KEY = "CHANGE_MENU_KEY";
+
+export const GET_CART_REQUEST = 'GET_CART_REQUEST';
+export const GET_CART_SUCCESS = 'GET_CART_SUCCESS';
+export const GET_CART_FAILURE = 'GET_CART_FAILURE';

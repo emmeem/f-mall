@@ -131,3 +131,26 @@ export function getCompanyProductList(url) {
   function companyProductListGetFetching() { return { type: types.GET_PRODUCT_REQUEST} }
   function companyProductListGetSuccess(data) { return { type: types.GET_PRODUCT_SUCCESS, data} }
 }
+
+export function getCartInfo(url) {
+  return dispatch => {
+    dispatch(userCartListGetFetching())
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then(handleResponse)
+    .then(res => {
+      dispatch(userCartListGetSuccess(res))
+    }).catch(e => {
+        dispatch(alertError(e));
+        dispatch(userCartListGetFailure(e));
+    });
+  }
+
+  function userCartListGetFetching() { return { type: types.GET_CART_REQUEST} }
+  function userCartListGetSuccess(data) { return { type: types.GET_CART_SUCCESS, data} }
+  function userCartListGetFailure(error) { return { type: types.GET_CART_FAILURE, error } }
+
+}

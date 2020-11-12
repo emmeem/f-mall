@@ -12,12 +12,11 @@ class CCompany extends Component {
 
   getProduct = () => {
     const { data } = this.props;
-    console.log(data);
     if(data !== undefined) {
       return (data.length > 0 ?
       data.map(m => {
         return <div className="product">
-          <img id="avator" src={m.pictures[0].url}/><br />
+          <img id="avator" alt="productImg" src={m.pictures[0].url }/><br />
           <label>{m.name}</label><br />
           <label>价格:{m.price}</label><br />
           <button className="btn-detail">查看详情</button>
