@@ -6,6 +6,7 @@ import Register from '../containers/user/Register'
 import ACompany from '../containers/company/ACompany'
 import BCompany from '../containers/company/BCompany'
 import CCompany from '../containers/company/CCompany'
+import userCoupon from '../containers/coupon/userCoupon'
 
 const ROUTES = [
   {
@@ -45,8 +46,11 @@ const ROUTES = [
     link: '/Company/C',
     text: 'C公司',
     component: CCompany
+  },{
+    link: '/coupon',
+    text: '查看优惠券',
+    component: userCoupon
   }
-
 ];
 
 export default ROUTES;

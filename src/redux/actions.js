@@ -199,3 +199,26 @@ export function setUserCoupon(info) {
   function setUserCouponGetFailure(error) { return { type: types.SET_USERCOUPON_FAILURE, error } }
 
 }
+
+export function getUserCoupon(url) {
+  return dispatch => {
+    dispatch(getUserCouponGetFetching())
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then(handleResponse)
+    .then(res => {
+      dispatch(getUserCouponGetSuccess(res))
+    }).catch(e => {
+        dispatch(alertError(e));
+        dispatch(getUserCouponGetFailure(e));
+    });
+  }
+
+  function getUserCouponGetFetching() { return { type: types.GET_USERCOUPON_REQUEST} }
+  function getUserCouponGetSuccess(data) { return { type: types.GET_USERCOUPON_SUCCESS, data} }
+  function getUserCouponGetFailure(error) { return { type: types.GET_USERCOUPON_FAILURE, error } }
+
+}

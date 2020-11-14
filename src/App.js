@@ -20,6 +20,7 @@ class App extends Component {
           <Route exact path='/company/A' component={ROUTES[5].component} />
           <Route exact path='/company/B' component={ROUTES[6].component} />
           <Route exact path='/company/C' component={ROUTES[7].component} />
+          <Route exact path='/coupon' component={ROUTES[8].component} />
         </Switch>
       </Router>
     );

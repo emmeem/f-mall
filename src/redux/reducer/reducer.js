@@ -6,7 +6,8 @@ import {
   GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS, GET_PRODUCT_FAILURE,
   GET_CART_REQUEST, GET_CART_SUCCESS, GET_CART_FAILURE,
   GET_MISSION_REQUEST, GET_MISSION_SUCCESS, GET_MISSION_FAILURE,
-  SET_USERCOUPON_REQUEST, SET_USERCOUPON_SUCCESS, SET_USERCOUPON_FAILURE
+  SET_USERCOUPON_REQUEST, SET_USERCOUPON_SUCCESS, SET_USERCOUPON_FAILURE,
+  GET_USERCOUPON_REQUEST, GET_USERCOUPON_SUCCESS, GET_USERCOUPON_FAILURE
 } from "../action-type";
 
 let user = JSON.parse(localStorage.getItem("user"));
@@ -166,6 +167,27 @@ function setUserCouponInfo(state ={}, action) {
   }
 }
 
+function getUserCouponInfo(state ={}, action) {
+  switch (action.type) {
+    case GET_USERCOUPON_REQUEST:
+      return {
+        couponList: [],
+        loading: true
+      }
+    case GET_USERCOUPON_SUCCESS:
+      return {
+        couponList: action.data,
+        loading: false,
+      }
+    case GET_USERCOUPON_FAILURE:
+      return {
+        couponList: [],
+      }
+    default:
+      return state
+  }
+}
+
 export const reducer = combineReducers({
   auth,
   registration,
@@ -174,5 +196,6 @@ export const reducer = combineReducers({
   getProductList,
   getCartInfo,
   getMissionInfo,
-  setUserCouponInfo
+  setUserCouponInfo,
+  getUserCouponInfo
 });

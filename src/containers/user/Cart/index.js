@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 
 class Cart extends Component {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(getCartInfo('http://localhost:8080/cart/1'));
+    const { dispatch, user } = this.props;
+    dispatch(getCartInfo('http://localhost:8080/cart/'+ user.id));
   }
 
 
@@ -49,8 +49,10 @@ class Cart extends Component {
 
 function mapStateToProps(state) {
   const { data } = state.getCartInfo;
+  const { user } = state.auth;
   return {
     data,
+    user,
   };
 }
 

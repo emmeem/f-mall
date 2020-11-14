@@ -30,7 +30,9 @@ class Menus extends Component {
         </Menu.Item>
         { isLoggedIn === true 
         ? <SubMenu title="个人中心">
-            <Menu.Item>欢迎</Menu.Item>
+            <Menu.Item key="coupon">
+            <Link to={ROUTES[8].link}><b>{ROUTES[8].text}</b></Link>
+            </Menu.Item>
           </SubMenu>
         : <SubMenu title = "登录或注册">
           <Menu.Item key="login" icon={<LoginOutlined />}>
