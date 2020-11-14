@@ -152,5 +152,50 @@ export function getCartInfo(url) {
   function userCartListGetFetching() { return { type: types.GET_CART_REQUEST} }
   function userCartListGetSuccess(data) { return { type: types.GET_CART_SUCCESS, data} }
   function userCartListGetFailure(error) { return { type: types.GET_CART_FAILURE, error } }
+}
+
+export function getMissionInfo(url) {
+  return dispatch => {
+    dispatch(missionInfoGetFetching())
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json"
+      }
+    }).then(handleResponse)
+    .then(res => {
+      dispatch(missionInfoGetSuccess(res))
+    }).catch(e => {
+        dispatch(alertError(e));
+        dispatch(missionInfoGetFailure(e));
+    });
+  }
+
+  function missionInfoGetFetching() { return { type: types.GET_MISSION_REQUEST} }
+  function missionInfoGetSuccess(data) { return { type: types.GET_MISSION_SUCCESS, data} }
+  function missionInfoGetFailure(error) { return { type: types.GET_MISSION_FAILURE, error } }
+}
+
+export function setUserCoupon(info) {
+  return dispatch => {
+    dispatch(setUserCouponGetFetching())
+    fetch('http://localhost:8080/coupon/userConpon', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(info)
+    }).then(handleResponse)
+    .then(res => {
+      dispatch(setUserCouponGetSuccess(res))
+    }).catch(e => {
+        dispatch(alertError(e));
+        dispatch(setUserCouponGetFailure(e));
+    });
+  }
+
+  function setUserCouponGetFetching() { return { type: types.SET_USERCOUPON_REQUEST} }
+  function setUserCouponGetSuccess(data) { return { type: types.SET_USERCOUPON_SUCCESS, data} }
+  function setUserCouponGetFailure(error) { return { type: types.SET_USERCOUPON_FAILURE, error } }
 
 }
