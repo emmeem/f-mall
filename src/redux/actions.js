@@ -179,7 +179,7 @@ export function getMissionInfo(url) {
 export function setUserCoupon(info) {
   return dispatch => {
     dispatch(setUserCouponGetFetching())
-    fetch('http://localhost:8080/coupon/userConpon', {
+    fetch('http://localhost:8080/coupon/userCoupon', {
       method: "POST",
       headers: {
         "Content-type": "application/json"

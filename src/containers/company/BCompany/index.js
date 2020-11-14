@@ -79,7 +79,6 @@ class BCompany extends Component {
         <Modal
           title="完成任务有奖励"
           visible={this.state.visible}
-          onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={[
             <Button key="back" onClick={this.handleCancel}>
