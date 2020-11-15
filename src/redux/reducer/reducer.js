@@ -7,11 +7,12 @@ import {
   GET_CART_REQUEST, GET_CART_SUCCESS, GET_CART_FAILURE,
   GET_MISSION_REQUEST, GET_MISSION_SUCCESS, GET_MISSION_FAILURE,
   SET_USERCOUPON_REQUEST, SET_USERCOUPON_SUCCESS, SET_USERCOUPON_FAILURE,
-  GET_USERCOUPON_REQUEST, GET_USERCOUPON_SUCCESS, GET_USERCOUPON_FAILURE
+  GET_USERCOUPON_REQUEST, GET_USERCOUPON_SUCCESS, GET_USERCOUPON_FAILURE,
+  SET_CART_REQUEST, SET_CART_SUCCESS, SET_CART_FAILURE
 } from "../action-type";
 
-let user = JSON.parse(localStorage.getItem("user"));
-const initialState = user ? { loggedIn: true, user } : {};
+//let user = JSON.parse(localStorage.getItem("user"));
+//const initialState = user ? { loggedIn: true, user } : {};
 
 function auth(state = {}, action) {
   
@@ -125,6 +126,27 @@ function getCartInfo(state ={}, action) {
   }
 }
 
+function setCartInfo(state ={}, action) {
+  switch (action.type) {
+    case SET_CART_REQUEST:
+      return {
+        cartInfo: [],
+        loading: true
+      }
+    case SET_CART_SUCCESS:
+      return {
+        cartInfo: action.data,
+        loading: false,
+      }
+    case SET_CART_FAILURE:
+      return {
+        cartInfo: [],
+      }
+    default:
+      return state
+  }
+}
+
 function getMissionInfo(state ={}, action) {
   switch (action.type) {
     case GET_MISSION_REQUEST:
@@ -197,5 +219,6 @@ export const reducer = combineReducers({
   getCartInfo,
   getMissionInfo,
   setUserCouponInfo,
-  getUserCouponInfo
+  getUserCouponInfo,
+  setCartInfo
 });

@@ -154,6 +154,29 @@ export function getCartInfo(url) {
   function userCartListGetFailure(error) { return { type: types.GET_CART_FAILURE, error } }
 }
 
+export function addProductToCart(userCartInfo) {
+  return dispatch => {
+    dispatch(userCartSetFetching())
+    fetch('http://localhost:8080/cart', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(userCartInfo)
+    }).then(handleResponse)
+    .then(res => {
+      dispatch(userCartSetSuccess(res))
+    }).catch(e => {
+        dispatch(alertError(e));
+        dispatch(userCartSetFailure(e));
+    });
+  }
+
+  function userCartSetFetching() { return { type: types.SET_CART_REQUEST} }
+  function userCartSetSuccess(data) { return { type: types.SET_CART_SUCCESS, data} }
+  function userCartSetFailure(error) { return { type: types.SET_CART_FAILURE, error } }
+}
+
 export function getMissionInfo(url) {
   return dispatch => {
     dispatch(missionInfoGetFetching())

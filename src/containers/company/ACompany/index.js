@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { getCompanyProductList } from "../../../redux/actions";
+import { getCompanyProductList, addProductToCart } from "../../../redux/actions";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './index.css'
+import { message } from 'antd';
 
 class ACompany extends Component {
   
@@ -10,6 +11,17 @@ class ACompany extends Component {
     const { dispatch } = this.props;
     dispatch(getCompanyProductList('http://localhost:8080/product/A'));
   }
+
+  addProduct = (productId) => {
+    const { dispatch, user } = this.props;
+    console.log(user)
+    if(user) {
+      dispatch(addProductToCart({productId: productId, userId: user.id, count:1}));
+    } else {
+      message.info("请您先登录，再添加商品")
+    }
+  }
+
 
   getProduct = () => {
     const { data } = this.props;
@@ -21,7 +33,7 @@ class ACompany extends Component {
           <label>{m.name}</label><br />
           <label>价格:{m.price}</label><br />
           <button className="btn-detail">查看详情</button>
-          <button className="btn-cart">添加到购物车</button>
+          <button className="btn-cart" onClick={()=>this.addProduct(m.id)}>添加到购物车</button>
         </div>
       })
       : (
@@ -48,8 +60,11 @@ class ACompany extends Component {
 
 function mapStateToProps(state) {
   const { data } = state.getProductList;
+  const { user } = state.auth;
+
   return {
     data,
+    user,
   };
 }
 
