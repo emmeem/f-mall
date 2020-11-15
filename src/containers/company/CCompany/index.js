@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getCompanyProductList, setUserCoupon } from "../../../redux/actions";
+import { getCompanyProductList, setUserCoupon, addProductToCart } from "../../../redux/actions";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { message, Modal, Button } from 'antd';
@@ -32,6 +32,16 @@ class CCompany extends Component {
     });
   };
 
+  addProduct = (productId) => {
+    const { dispatch, user } = this.props;
+    console.log(user)
+    if(user) {
+      dispatch(addProductToCart({productId: productId, userId: user.id, count:1}));
+    } else {
+      message.info("请您先登录，再添加商品")
+    }
+  }
+
   getProduct = () => {
     const { data } = this.props;
     if(data !== undefined) {
@@ -42,7 +52,7 @@ class CCompany extends Component {
           <label>{m.name}</label><br />
           <label>价格:{m.price}</label><br />
           <button className="btn-detail">查看详情</button>
-          <button className="btn-cart">添加到购物车</button>
+          <button className="btn-cart" onClick={()=>this.addProduct(m.id)}>添加到购物车</button>
         </div>
       })
       : (
